@@ -3,7 +3,8 @@
     "allow": [
       "PowerShell(node --version)",
       "PowerShell(npm --version)",
-      "PowerShell(Get-Content \"$env:TEMP\\\\mz-backend.log\"; Get-Content \"$env:TEMP\\\\mz-backend-err.log\")"
+      "PowerShell(Get-Content \"$env:TEMP\\\\mz-backend.log\"; Get-Content \"$env:TEMP\\\\mz-backend-err.log\")",
+      "mcp__Claude_Preview__preview_start"
     ]
   }
 }

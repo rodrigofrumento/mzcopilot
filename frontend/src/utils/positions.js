@@ -1,0 +1,48 @@
+// Mapeamento: nome da skill no MZ → chave no banco
+const SKILL_MAP = {
+  'Velocidade':       'skill_speed',
+  'Resistência':      'skill_stamina',
+  'Inteligência':     'skill_play_intelligence',
+  'Passe Curto':      'skill_passing',
+  'Chute':            'skill_shooting',
+  'Cabeceio':         'skill_heading',
+  'Defesa a Gol':     'skill_keeping',
+  'Controle de Bola': 'skill_ball_control',
+  'Desarme':          'skill_tackling',
+  'Passe Longo':      'skill_aerial_passing',
+  'Bola Parada':      'skill_set_plays',
+  'Experiência':      'skill_experience',
+  'Forma':            'skill_form',
+};
+
+const WEIGHTS = {
+  'Goleiro':       { 'Velocidade':2,'Resistência':8,'Inteligência':8,'Passe Curto':0,'Chute':0,'Cabeceio':0,'Defesa a Gol':8,'Controle de Bola':2,'Desarme':0,'Passe Longo':2,'Bola Parada':0,'Experiência':8,'Forma':8 },
+  'Zagueiro':      { 'Velocidade':7,'Resistência':3,'Inteligência':8,'Passe Curto':6,'Chute':0,'Cabeceio':0,'Defesa a Gol':0,'Controle de Bola':3,'Desarme':8,'Passe Longo':3,'Bola Parada':0,'Experiência':8,'Forma':3 },
+  'Lateral':       { 'Velocidade':9,'Resistência':8,'Inteligência':3,'Passe Curto':7,'Chute':0,'Cabeceio':0,'Defesa a Gol':0,'Controle de Bola':7,'Desarme':9,'Passe Longo':4,'Bola Parada':0,'Experiência':10,'Forma':8 },
+  'Volante':       { 'Velocidade':7,'Resistência':8,'Inteligência':8,'Passe Curto':8,'Chute':0,'Cabeceio':0,'Defesa a Gol':0,'Controle de Bola':2,'Desarme':8,'Passe Longo':7,'Bola Parada':0,'Experiência':8,'Forma':8 },
+  'Meia Central':  { 'Velocidade':7,'Resistência':8,'Inteligência':8,'Passe Curto':8,'Chute':1,'Cabeceio':0,'Defesa a Gol':0,'Controle de Bola':5,'Desarme':1,'Passe Longo':8,'Bola Parada':0,'Experiência':8,'Forma':8 },
+  'Meia Atacante': { 'Velocidade':6,'Resistência':8,'Inteligência':8,'Passe Curto':8,'Chute':8,'Cabeceio':0,'Defesa a Gol':0,'Controle de Bola':7,'Desarme':7,'Passe Longo':7,'Bola Parada':0,'Experiência':8,'Forma':8 },
+  'Ponta':         { 'Velocidade':9,'Resistência':8,'Inteligência':5,'Passe Curto':3,'Chute':0,'Cabeceio':0,'Defesa a Gol':0,'Controle de Bola':8,'Desarme':0,'Passe Longo':8,'Bola Parada':0,'Experiência':8,'Forma':8 },
+  'Atacante':      { 'Velocidade':8,'Resistência':8,'Inteligência':8,'Passe Curto':3,'Chute':8,'Cabeceio':2,'Defesa a Gol':0,'Controle de Bola':6,'Desarme':1,'Passe Longo':0,'Bola Parada':0,'Experiência':8,'Forma':8 },
+  'Cabeçudo':      { 'Velocidade':4,'Resistência':8,'Inteligência':8,'Passe Curto':2,'Chute':8,'Cabeceio':8,'Defesa a Gol':0,'Controle de Bola':5,'Desarme':0,'Passe Longo':0,'Bola Parada':0,'Experiência':8,'Forma':8 },
+};
+
+// Calcula score de um jogador para cada posição
+function calcScores(player) {
+  return Object.entries(WEIGHTS).map(([pos, weights]) => {
+    const score = Object.entries(weights).reduce((sum, [skillName, weight]) => {
+      const dbKey = SKILL_MAP[skillName];
+      return sum + (player[dbKey] ?? 0) * weight;
+    }, 0);
+    return { pos, score };
+  }).sort((a, b) => b.score - a.score);
+}
+
+// Retorna { primary, secondary }
+export function getPositions(player) {
+  const ranked = calcScores(player);
+  return {
+    primary:   ranked[0]?.pos ?? '—',
+    secondary: ranked[1]?.pos ?? '—',
+  };
+}

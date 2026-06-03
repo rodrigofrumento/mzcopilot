@@ -2,10 +2,16 @@
 // Se o MZ atualizar o HTML, só precisa mexer neste arquivo.
 
 module.exports = {
+  squad: {
+    // A tabela correta do Squad Summary — células: No | Name | Value | Salary | Age | Born | skills...
+    summaryReady: '#playerAltViewTable a[href*="pid="]',
+    playerLink: '#playerAltViewTable a[href*="pid="]',
+  },
+
   login: {
-    usernameInput: 'input[name="username"]',
-    passwordInput: 'input[name="password"]',
-    submitButton: 'input[type="submit"], button[type="submit"]',
-    postLoginIndicator: '#top_bar_teamname, .team-name, #clubhouse_content',
+    usernameInput: '#login_username',
+    passwordInput: '#login_password',
+    // Clique via JS para garantir que o evento do MD5 dispara
+    submitButton: null,
   },
 };

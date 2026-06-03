@@ -1,0 +1,17 @@
+.balls {
+  display: inline-flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.ball {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.ball.filled {
+  background: var(--accent);
+}
