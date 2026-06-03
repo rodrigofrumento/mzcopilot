@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { getAuthStatus } from './api/auth';
 import Login from './pages/Login';
 import Layout from './components/Layout';
+import Squad from './pages/Squad';
 
 function Placeholder({ title }) {
   return (
@@ -38,7 +39,7 @@ export default function App() {
     <Layout onLogout={() => setAuthState('unauthenticated')}>
       <Routes>
         <Route path="/" element={<Navigate to="/squad" replace />} />
-        <Route path="/squad" element={<Placeholder title="Elenco" />} />
+        <Route path="/squad" element={<Squad />} />
         <Route path="/youth" element={<Placeholder title="Juniores" />} />
         <Route path="/training" element={<Placeholder title="Treino" />} />
         <Route path="/tactics" element={<Placeholder title="Táticas" />} />
