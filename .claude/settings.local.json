@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(node --version)",
+      "PowerShell(npm --version)",
+      "PowerShell(Get-Content \"$env:TEMP\\\\mz-backend.log\"; Get-Content \"$env:TEMP\\\\mz-backend-err.log\")"
+    ]
+  }
+}
