@@ -24,6 +24,13 @@
   margin-left: 8px;
 }
 
+.lastSync {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
 .actions {
   display: flex;
   align-items: center;
@@ -107,6 +114,13 @@
 
 .num  { color: var(--text-muted); width: 32px; }
 .name { font-weight: 500; }
+.nameBtn {
+  background: none; border: none; color: var(--text); font-weight: 500;
+  cursor: pointer; padding: 0; font-size: inherit; font-family: inherit;
+  text-align: left;
+  transition: color 0.12s;
+}
+.nameBtn:hover { color: var(--accent); text-decoration: underline; }
 .pos  { color: var(--green); font-size: 12px; font-weight: 500; white-space: nowrap; }
 .pos2 { color: var(--text-muted); font-size: 12px; white-space: nowrap; }
 .money { color: var(--text-muted); font-size: 12px; }
@@ -121,8 +135,30 @@
   color: var(--text);
 }
 
+.skillMaxed {
+  color: var(--red);
+  font-weight: 700;
+}
+
 .total {
   font-weight: 700;
   color: var(--accent);
   text-align: right;
 }
+
+/* Delta indicators */
+.deltaLegend {
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.legendNote { margin-left: 8px; font-style: italic; }
+
+.changedRow td:first-child { border-left: 2px solid var(--accent); }
+.skillChanged { position: relative; }
+
+.deltaUp   { color: var(--green);  font-size: 9px; margin-left: 2px; vertical-align: super; }
+.deltaDown { color: var(--red);    font-size: 9px; margin-left: 2px; vertical-align: super; }
+.deltaMax  { color: var(--yellow); font-size: 9px; margin-left: 2px; vertical-align: super; }

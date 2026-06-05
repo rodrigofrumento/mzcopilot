@@ -62,9 +62,15 @@ db.run(`
     potential_aerial_passing    TEXT,
     potential_set_plays         TEXT,
     training_speed            TEXT,
+    maxed_skills              TEXT,
     last_synced_at            DATETIME
   )
 `);
+
+// Migration: adiciona maxed_skills se já existia a tabela sem ela
+try {
+  db.run('ALTER TABLE players ADD COLUMN maxed_skills TEXT');
+} catch (_) { /* coluna já existe */ }
 
 db.run(`
   CREATE TABLE IF NOT EXISTS training_log (
@@ -97,6 +103,19 @@ db.run(`
     module      TEXT,
     status      TEXT,
     message     TEXT
+  )
+`);
+
+db.run(`
+  CREATE TABLE IF NOT EXISTS skill_changes (
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    player_id    TEXT,
+    player_name  TEXT,
+    skill        TEXT,
+    change_type  TEXT,
+    old_val      INTEGER,
+    new_val      INTEGER,
+    detected_at  DATETIME DEFAULT CURRENT_TIMESTAMP
   )
 `);
 
