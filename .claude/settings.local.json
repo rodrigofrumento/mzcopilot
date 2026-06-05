@@ -4,7 +4,16 @@
       "PowerShell(node --version)",
       "PowerShell(npm --version)",
       "PowerShell(Get-Content \"$env:TEMP\\\\mz-backend.log\"; Get-Content \"$env:TEMP\\\\mz-backend-err.log\")",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "WebFetch(domain:greasyfork.org)",
+      "Bash(node scraper/debug-tactics2.js)",
+      "Bash(tasklist /fi \"imagename eq node.exe\")",
+      "Bash(tasklist)",
+      "Bash(curl -s \"http://localhost:3001/api/v1/health\")",
+      "Bash(node -e \"const p = require\\('puppeteer'\\); console.log\\(p.executablePath\\(\\)\\)\")",
+      "Bash(node -e ' *)",
+      "Bash(taskkill /F /IM chrome.exe)",
+      "Bash(npx vite *)"
     ]
   }
 }

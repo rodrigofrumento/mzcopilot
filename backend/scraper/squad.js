@@ -20,6 +20,14 @@ async function scrapeSquad() {
   try {
     await page.goto(SQUAD_URL, { waitUntil: 'domcontentloaded' });
 
+    // Detecta redirecionamento para tela de login (sessão expirada)
+    const isLoginPage = await page.$('#login_username');
+    if (isLoginPage) {
+      const err = new Error('Sessão expirada — faça login novamente');
+      err.code = 'SESSION_EXPIRED';
+      throw err;
+    }
+
     // Aguarda o #squad_summary ter jogadores e o count parar de crescer (AJAX completo)
     await page.waitForFunction(
       () => document.querySelectorAll('#squad_summary a[href*="pid="]').length > 0,
@@ -35,9 +43,12 @@ async function scrapeSquad() {
         const cells = [...tr.querySelectorAll('td')].map(td => td.textContent.trim());
         const pidMatch = a.href.match(/pid=(\d+)/);
 
+        const tds = [...tr.querySelectorAll('td')];
         const skills = {};
+        const maxedSkills = [];
         skillCols.forEach((col, i) => {
           skills[col] = parseInt(cells[6 + i], 10) || 0;
+          if (tds[6 + i]?.className === 'maxed') maxedSkills.push(col);
         });
 
         return {
@@ -49,6 +60,7 @@ async function scrapeSquad() {
           value: cells[2],
           salary: cells[3],
           is_youth: 0,
+          maxed_skills: JSON.stringify(maxedSkills),
           ...skills,
         };
       });

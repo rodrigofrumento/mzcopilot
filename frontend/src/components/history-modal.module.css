@@ -1,0 +1,112 @@
+/* Overlay */
+.overlay {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(2px);
+}
+
+/* Modal */
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  width: 100%; max-width: 480px;
+  max-height: 80vh;
+  display: flex; flex-direction: column;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+}
+
+/* Header */
+.modalHeader {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.playerName { font-size: 18px; font-weight: 700; color: var(--text); }
+.playerMeta { display: flex; align-items: center; gap: 8px; margin-top: 4px; font-size: 12px; color: var(--text-muted); }
+
+.youthTag {
+  background: rgba(79,168,224,0.15); color: var(--blue);
+  border: 1px solid rgba(79,168,224,0.3);
+  border-radius: 3px; padding: 1px 5px; font-size: 10px; font-weight: 700;
+}
+.speedTag {
+  background: rgba(61,204,126,0.12); color: var(--green);
+  border: 1px solid rgba(61,204,126,0.25);
+  border-radius: 3px; padding: 1px 5px; font-size: 10px; font-weight: 700;
+}
+
+.closeBtn {
+  background: none; border: none; color: var(--text-muted);
+  font-size: 16px; cursor: pointer; padding: 4px 8px;
+  border-radius: var(--radius);
+  transition: color 0.12s, background 0.12s;
+  flex-shrink: 0;
+}
+.closeBtn:hover { color: var(--text); background: var(--surface2); }
+
+/* Body */
+.body {
+  overflow-y: auto; flex: 1;
+  padding: 16px 20px;
+  display: flex; flex-direction: column; gap: 20px;
+}
+
+.empty {
+  color: var(--text-muted); font-size: 13px; font-style: italic;
+  text-align: center; padding: 24px 0; line-height: 1.6;
+}
+.error { color: var(--red); font-size: 13px; padding: 12px; background: rgba(224,92,92,0.1); border-radius: var(--radius); }
+
+/* Day group */
+.dayGroup { display: flex; flex-direction: column; gap: 4px; }
+
+.dayLabel {
+  font-size: 11px; font-weight: 700; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.dayChanges { display: flex; flex-direction: column; gap: 2px; margin-top: 4px; }
+
+/* Change row */
+.changeRow {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 10px; border-radius: var(--radius);
+  font-size: 13px;
+}
+.changeRow.up   { background: rgba(61,204,126,0.07); }
+.changeRow.down { background: rgba(224,92,92,0.07); }
+.changeRow.max  { background: rgba(251,188,4,0.08); }
+
+.changeIcon { font-size: 12px; width: 14px; text-align: center; }
+.up   .changeIcon { color: var(--green); }
+.down .changeIcon { color: var(--red); }
+.max  .changeIcon { color: var(--yellow); }
+
+.changeSkill { flex: 1; color: var(--text); font-weight: 500; }
+
+.changeVal { color: var(--text-muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.arrow { color: var(--text-muted); margin: 0 3px; }
+
+.maxTag {
+  font-size: 10px; font-weight: 700; color: var(--yellow);
+  background: rgba(251,188,4,0.15); border: 1px solid rgba(251,188,4,0.3);
+  border-radius: 3px; padding: 1px 5px;
+}
+
+.changeTime { font-size: 11px; color: var(--text-muted); min-width: 40px; text-align: right; }
+
+/* Footer */
+.footer {
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+  font-size: 11px; color: var(--text-muted);
+  text-align: right;
+  flex-shrink: 0;
+}

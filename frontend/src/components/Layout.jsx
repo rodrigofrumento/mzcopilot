@@ -3,9 +3,10 @@ import { logout } from '../api/auth';
 import styles from './layout.module.css';
 
 const NAV_ITEMS = [
-  { to: '/squad', label: 'Elenco' },
-  { to: '/youth', label: 'Juniores' },
-  { to: '/training', label: 'Treino' },
+  { to: '/',        label: 'Dashboard' },
+  { to: '/squad',   label: 'Elenco' },
+  { to: '/youth',   label: 'Juniores' },
+  { to: '/training',label: 'Treino' },
   { to: '/tactics', label: 'Táticas' },
 ];
 
@@ -28,6 +29,7 @@ export default function Layout({ children, onLogout }) {
             <NavLink
               key={item.to}
               to={item.to}
+              end={item.to === '/'}
               className={({ isActive }) =>
                 `${styles.navItem} ${isActive ? styles.active : ''}`
               }

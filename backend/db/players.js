@@ -23,7 +23,7 @@ function upsertPlayer(player) {
       skill_shooting, skill_heading, skill_keeping, skill_ball_control,
       skill_tackling, skill_aerial_passing, skill_set_plays,
       skill_experience, skill_form,
-      last_synced_at
+      maxed_skills, last_synced_at
     ) VALUES (
       ?, ?, ?, ?, ?,
       ?, ?, ?, ?,
@@ -31,7 +31,7 @@ function upsertPlayer(player) {
       ?, ?, ?, ?,
       ?, ?, ?,
       ?, ?,
-      ?
+      ?, ?
     )
   `, [
     player.id, player.name, player.number, player.age, player.birth_season,
@@ -40,16 +40,40 @@ function upsertPlayer(player) {
     player.skill_shooting, player.skill_heading, player.skill_keeping, player.skill_ball_control,
     player.skill_tackling, player.skill_aerial_passing, player.skill_set_plays,
     player.skill_experience, player.skill_form,
-    now,
+    player.maxed_skills ?? null, now,
   ]);
+}
+
+function updatePlayerPotential(data) {
+  const POTENTIAL_COLS = [
+    'potential_speed', 'potential_stamina', 'potential_play_intelligence',
+    'potential_passing', 'potential_shooting', 'potential_heading', 'potential_keeping',
+    'potential_ball_control', 'potential_tackling', 'potential_aerial_passing', 'potential_set_plays',
+    'training_speed', 'training_area', 'is_youth',
+  ];
+
+  const cols = POTENTIAL_COLS.filter(c => data[c] !== undefined);
+  if (cols.length === 0) return;
+
+  const set = cols.map(c => `${c} = ?`).join(', ');
+  const values = cols.map(c => data[c]);
+
+  db.run(
+    `UPDATE players SET ${set}, last_synced_at = ? WHERE id = ?`,
+    [...values, new Date().toISOString(), data.id]
+  );
 }
 
 function getAllPlayers() {
   return db.all('SELECT * FROM players WHERE is_youth = 0 ORDER BY number ASC');
 }
 
+function getAllYouthPlayers() {
+  return db.all('SELECT * FROM players WHERE is_youth = 1 AND age <= 18 ORDER BY number ASC');
+}
+
 function getPlayerById(id) {
   return db.get('SELECT * FROM players WHERE id = ?', [id]);
 }
 
-module.exports = { upsertPlayer, getAllPlayers, getPlayerById };
+module.exports = { upsertPlayer, updatePlayerPotential, getAllPlayers, getAllYouthPlayers, getPlayerById };

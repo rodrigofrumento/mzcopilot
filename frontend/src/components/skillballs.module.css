@@ -15,3 +15,7 @@
 .ball.filled {
   background: var(--accent);
 }
+
+.ball.maxed {
+  background: var(--red);
+}

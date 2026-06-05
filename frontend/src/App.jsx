@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { getAuthStatus } from './api/auth';
 import Login from './pages/Login';
 import Layout from './components/Layout';
-import Squad from './pages/Squad';
+import Home     from './pages/Home';
+import Squad    from './pages/Squad';
+import Youth    from './pages/Youth';
+import Training from './pages/Training';
+import Tactics  from './pages/Tactics';
 
 function Placeholder({ title }) {
   return (
@@ -38,11 +42,11 @@ export default function App() {
   return (
     <Layout onLogout={() => setAuthState('unauthenticated')}>
       <Routes>
-        <Route path="/" element={<Navigate to="/squad" replace />} />
-        <Route path="/squad" element={<Squad />} />
-        <Route path="/youth" element={<Placeholder title="Juniores" />} />
-        <Route path="/training" element={<Placeholder title="Treino" />} />
-        <Route path="/tactics" element={<Placeholder title="Táticas" />} />
+        <Route path="/"        element={<Home     onSessionExpired={() => setAuthState('unauthenticated')} />} />
+        <Route path="/squad"   element={<Squad    onSessionExpired={() => setAuthState('unauthenticated')} />} />
+        <Route path="/youth"   element={<Youth    onSessionExpired={() => setAuthState('unauthenticated')} />} />
+        <Route path="/training"element={<Training onSessionExpired={() => setAuthState('unauthenticated')} />} />
+        <Route path="/tactics" element={<Tactics onSessionExpired={() => setAuthState('unauthenticated')} />} />
       </Routes>
     </Layout>
   );
